@@ -7,7 +7,8 @@ Class {
 		'visitedMethodProtocol',
 		'visitorMethodsProtocol',
 		'visitedMethodTemplate',
-		'visitorMethodTemplate'
+		'visitorMethodTemplate',
+		'shouldGenerateMethodInVisitedClasses'
 	],
 	#category : #DesignPatternGenerator
 }
@@ -41,9 +42,10 @@ DPGVisitorGenerator >> generate [
 	
 	self visitedClasses do: [ :visitedClass |
 		| selector |
-		selector := visitedClass compile: (self visitedMethodForVisited: visitedClass).
-		(visitedClass >> selector)
-			protocol: self visitedMethodProtocol.
+		self shouldGenerateMethodInVisitedClasses ifTrue: [
+			selector := visitedClass compile: (self visitedMethodForVisited: visitedClass).
+			(visitedClass >> selector)
+				protocol: self visitedMethodProtocol ].
 		selector := self visitorClass compile: (self visitorMethodForVisited: visitedClass).
 		(self visitorClass >> selector)
 			protocol: self visitorMethodsProtocol ]
@@ -56,7 +58,18 @@ DPGVisitorGenerator >> initialize [
 		visitedMethodProtocol: self class defaultVisitedMethodProtocol;
 		visitedMethodTemplate: self class defaultVisitedMethodTemplate;
 		visitorMethodsProtocol: self class defaultVisitorMethodProtocol;
-		visitorMethodTemplate: self class defaultVisitorMethodTemplate
+		visitorMethodTemplate: self class defaultVisitorMethodTemplate;
+		shouldGenerateMethodInVisitedClasses: true
+]
+
+{ #category : #accessing }
+DPGVisitorGenerator >> shouldGenerateMethodInVisitedClasses [
+	^ shouldGenerateMethodInVisitedClasses
+]
+
+{ #category : #accessing }
+DPGVisitorGenerator >> shouldGenerateMethodInVisitedClasses: anObject [
+	shouldGenerateMethodInVisitedClasses := anObject
 ]
 
 { #category : #accessing }
