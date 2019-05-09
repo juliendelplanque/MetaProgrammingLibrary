@@ -37,11 +37,16 @@ DPGVisitorGenerator class >> defaultVisitorMethodTemplate [
 
 { #category : #generating }
 DPGVisitorGenerator >> generate [
+	| selector |
 	self assert: self visitorClass isClass.
 	self assert: (self visitedClasses allSatisfy: #isClass).
 	
+	selector := self visitorClass compile: 'visit: anObject
+	^ anObject acceptVisitor: self'.
+	(self visitorClass >> selector)
+		protocol: self visitorMethodsProtocol.
+	
 	self visitedClasses do: [ :visitedClass |
-		| selector |
 		self shouldGenerateMethodInVisitedClasses ifTrue: [
 			selector := visitedClass compile: (self visitedMethodForVisited: visitedClass).
 			(visitedClass >> selector)
