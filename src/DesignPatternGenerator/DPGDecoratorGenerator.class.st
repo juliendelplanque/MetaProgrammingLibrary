@@ -48,7 +48,10 @@ DPGDecoratorGenerator >> generate [
 		ast := compiledMethod parseTree.
 		hasSelfReturn := false.
 		ast acceptVisitor: (RBGenericNodeVisitor new
-			visitBlock: [ :n | hasSelfReturn := hasSelfReturn or: [ n isReturn and: [ n value isSelf not ] ] ]) ] 
+			visitBlock: [ :n | hasSelfReturn := hasSelfReturn or: [ n isReturn and: [ n value isSelf not ] ] ]).
+		hasSelfReturn
+			ifTrue: [  ]
+			ifFalse: [  ] ] 
 ]
 
 { #category : #accessing }
