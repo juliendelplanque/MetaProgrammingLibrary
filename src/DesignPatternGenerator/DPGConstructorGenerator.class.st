@@ -3,9 +3,9 @@ Class {
 	#superclass : #DPGAbstractGenerator,
 	#instVars : [
 		'targetClass',
-		'mutatorMethods',
 		'constructorArgumentNames',
-		'protocol'
+		'protocol',
+		'mutatorSelectors'
 	],
 	#category : #DesignPatternGenerator
 }
@@ -49,11 +49,6 @@ DPGConstructorGenerator >> createDummyParameterNames [
 	self constructorArgumentNames: (self mutatorMethods collect: [ :method | method selector allButLast ])
 ]
 
-{ #category : #configuring }
-DPGConstructorGenerator >> createParameterNamesFromMutatorMethods [
-	self shouldBeImplemented
-]
-
 { #category : #generating }
 DPGConstructorGenerator >> generate [
 	| selector |
@@ -70,12 +65,17 @@ DPGConstructorGenerator >> initialize [
 
 { #category : #accessing }
 DPGConstructorGenerator >> mutatorMethods [
-	^ mutatorMethods
+	^ self mutatorSelectors collect: [ :selector | self targetClass >> selector ]
 ]
 
 { #category : #accessing }
-DPGConstructorGenerator >> mutatorMethods: aCollection [
-	mutatorMethods := aCollection
+DPGConstructorGenerator >> mutatorSelectors [
+	^ mutatorSelectors
+]
+
+{ #category : #accessing }
+DPGConstructorGenerator >> mutatorSelectors: aCollection [
+	mutatorSelectors := aCollection
 ]
 
 { #category : #accessing }
