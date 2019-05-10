@@ -35,6 +35,14 @@ DPGVisitorGenerator class >> defaultVisitorMethodTemplate [
 	^ self subclassResponsibility'
 ]
 
+{ #category : #'instance creation' }
+DPGVisitorGenerator class >> visitorClass: anObject1 visitedClasses: anObject2 [ 
+	^ self new
+		visitorClass: anObject1;
+		visitedClasses: anObject2;
+		yourself
+]
+
 { #category : #generating }
 DPGVisitorGenerator >> generate [
 	| selector |
