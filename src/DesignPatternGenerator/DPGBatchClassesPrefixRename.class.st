@@ -29,7 +29,7 @@ DPGBatchClassesPrefixRename >> generate [
 	self classes
 		select: [ :c | c name beginsWith: self oldPrefix ]
 		thenDo: [ :classToBeRenamed |
-			classToBeRenamed rename: self newPrefix , (classToBeRenamed name allButFirst: self oldPrefix size) ]
+			(RBRenameClassRefactoring rename: classToBeRenamed to: self newPrefix , (classToBeRenamed name allButFirst: self oldPrefix size)) execute ]
 ]
 
 { #category : #initialization }
