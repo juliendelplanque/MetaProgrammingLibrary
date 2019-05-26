@@ -1,31 +1,31 @@
 Class {
-	#name : #DPGBatchClassesPrefixRename,
-	#superclass : #DPGAbstractGenerator,
+	#name : #MPLBatchClassesPrefixRename,
+	#superclass : #MPLAbstractGenerator,
 	#instVars : [
 		'oldPrefix',
 		'newPrefix',
 		'classes'
 	],
-	#category : #DesignPatternGenerator
+	#category : #MetaProgrammingLibrary
 }
 
 { #category : #default }
-DPGBatchClassesPrefixRename class >> defaultNewPrefix [
+MPLBatchClassesPrefixRename class >> defaultNewPrefix [
 	^ ''
 ]
 
 { #category : #accessing }
-DPGBatchClassesPrefixRename >> classes [
+MPLBatchClassesPrefixRename >> classes [
 	^ classes
 ]
 
 { #category : #accessing }
-DPGBatchClassesPrefixRename >> classes: anObject [
+MPLBatchClassesPrefixRename >> classes: anObject [
 	classes := anObject
 ]
 
 { #category : #generating }
-DPGBatchClassesPrefixRename >> generate [
+MPLBatchClassesPrefixRename >> generate [
 	self classes
 		select: [ :c | c name beginsWith: self oldPrefix ]
 		thenDo: [ :classToBeRenamed |
@@ -33,7 +33,7 @@ DPGBatchClassesPrefixRename >> generate [
 ]
 
 { #category : #initialization }
-DPGBatchClassesPrefixRename >> initialize [
+MPLBatchClassesPrefixRename >> initialize [
 	super initialize.
 	self
 		newPrefix: self class defaultNewPrefix;
@@ -41,26 +41,26 @@ DPGBatchClassesPrefixRename >> initialize [
 ]
 
 { #category : #accessing }
-DPGBatchClassesPrefixRename >> newPrefix [
+MPLBatchClassesPrefixRename >> newPrefix [
 	^ newPrefix
 ]
 
 { #category : #accessing }
-DPGBatchClassesPrefixRename >> newPrefix: anObject [
+MPLBatchClassesPrefixRename >> newPrefix: anObject [
 	newPrefix := anObject
 ]
 
 { #category : #accessing }
-DPGBatchClassesPrefixRename >> oldPrefix [
+MPLBatchClassesPrefixRename >> oldPrefix [
 	^ oldPrefix
 ]
 
 { #category : #accessing }
-DPGBatchClassesPrefixRename >> oldPrefix: anObject [
+MPLBatchClassesPrefixRename >> oldPrefix: anObject [
 	oldPrefix := anObject
 ]
 
 { #category : #accessing }
-DPGBatchClassesPrefixRename >> packages: aCollectionOfRPackage [
+MPLBatchClassesPrefixRename >> packages: aCollectionOfRPackage [
 	self classes: (aCollectionOfRPackage flatCollect: #definedClasses)
 ]

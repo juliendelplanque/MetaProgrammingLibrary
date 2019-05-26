@@ -1,26 +1,26 @@
 Class {
-	#name : #DPGConstructorGeneratorCommand,
+	#name : #MPLConstructorGeneratorCommand,
 	#superclass : #SycMethodCommand,
 	#instVars : [
 		'targetClass'
 	],
-	#category : #'DesignPatternGenerator-CalypsoIntegration'
+	#category : #'MetaProgrammingLibrary-CalypsoIntegration'
 }
 
 { #category : #activation }
-DPGConstructorGeneratorCommand class >> methodMenuActivation [
+MPLConstructorGeneratorCommand class >> methodMenuActivation [
 	<classAnnotation>
 	
 	^CmdContextMenuActivation byRootGroupItemOrder: 10000 for: ClyMethod asCalypsoItemContext 
 ]
 
 { #category : #execution }
-DPGConstructorGeneratorCommand >> defaultMenuItemName [
+MPLConstructorGeneratorCommand >> defaultMenuItemName [
 	^'Generate constructor'
 ]
 
 { #category : #execution }
-DPGConstructorGeneratorCommand >> execute [
+MPLConstructorGeneratorCommand >> execute [
 	| code |
 	code := 'DPGConstructorGenerator new
 	targetClass: {1};
@@ -31,7 +31,7 @@ DPGConstructorGeneratorCommand >> execute [
 ]
 
 { #category : #execution }
-DPGConstructorGeneratorCommand >> prepareFullExecutionInContext: aToolContext [
+MPLConstructorGeneratorCommand >> prepareFullExecutionInContext: aToolContext [
 	super prepareFullExecutionInContext: aToolContext.
 	targetClass := aToolContext selectedClasses size = 1
 						ifFalse: [ aToolContext requestSingleClass: 'Choose class' from: aToolContext selectedClasses ]
@@ -39,11 +39,11 @@ DPGConstructorGeneratorCommand >> prepareFullExecutionInContext: aToolContext [
 ]
 
 { #category : #accessing }
-DPGConstructorGeneratorCommand >> targetClass [
+MPLConstructorGeneratorCommand >> targetClass [
 	^ targetClass
 ]
 
 { #category : #accessing }
-DPGConstructorGeneratorCommand >> targetClass: anObject [
+MPLConstructorGeneratorCommand >> targetClass: anObject [
 	targetClass := anObject
 ]

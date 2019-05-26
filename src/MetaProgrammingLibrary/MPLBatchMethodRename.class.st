@@ -1,18 +1,18 @@
 Class {
-	#name : #DPGBatchMethodRename,
-	#superclass : #DPGAbstractGenerator,
+	#name : #MPLBatchMethodRename,
+	#superclass : #MPLAbstractGenerator,
 	#instVars : [
 		'oldSubstring',
 		'newSubstring',
 		'methods',
 		'comparisonSelector'
 	],
-	#category : #DesignPatternGenerator
+	#category : #MetaProgrammingLibrary
 }
 
 { #category : #examples }
-DPGBatchMethodRename class >> example [
-	DPGBatchClassesPrefixRename new
+MPLBatchMethodRename class >> example [
+	MPLBatchClassesPrefixRename new
 		methods: {(Object >> #haltIf:) . (Object >> #haltOnCount:)};
 		oldSubstring: 'halt';
 		newSubstring: 'break';
@@ -20,8 +20,8 @@ DPGBatchMethodRename class >> example [
 ]
 
 { #category : #examples }
-DPGBatchMethodRename class >> example2 [
-	DPGBatchClassesPrefixRename new
+MPLBatchMethodRename class >> example2 [
+	MPLBatchClassesPrefixRename new
 		class: Object;
 		oldSubstring: 'halt';
 		newSubstring: 'break';
@@ -30,27 +30,27 @@ DPGBatchMethodRename class >> example2 [
 ]
 
 { #category : #accessing }
-DPGBatchMethodRename >> classe: aClass [
+MPLBatchMethodRename >> classe: aClass [
 	self methods: aClass methods
 ]
 
 { #category : #accessing }
-DPGBatchMethodRename >> classes: aCollectionOfClasses [
+MPLBatchMethodRename >> classes: aCollectionOfClasses [
 	self methods: (aCollectionOfClasses flatCollect: #methods)
 ]
 
 { #category : #accessing }
-DPGBatchMethodRename >> comparisonSelector [
+MPLBatchMethodRename >> comparisonSelector [
 	^ comparisonSelector
 ]
 
 { #category : #accessing }
-DPGBatchMethodRename >> comparisonSelector: anObject [
+MPLBatchMethodRename >> comparisonSelector: anObject [
 	comparisonSelector := anObject
 ]
 
 { #category : #generating }
-DPGBatchMethodRename >> generate [
+MPLBatchMethodRename >> generate [
 	self validate.
 
 	self methods
@@ -68,53 +68,53 @@ DPGBatchMethodRename >> generate [
 ]
 
 { #category : #initialization }
-DPGBatchMethodRename >> initialize [
+MPLBatchMethodRename >> initialize [
 	super initialize.
 	self comparisonSelector: #includesSubstring:
 ]
 
 { #category : #accessing }
-DPGBatchMethodRename >> methods [
+MPLBatchMethodRename >> methods [
 	^ methods
 ]
 
 { #category : #accessing }
-DPGBatchMethodRename >> methods: anObject [
+MPLBatchMethodRename >> methods: anObject [
 	methods := anObject
 ]
 
 { #category : #accessing }
-DPGBatchMethodRename >> newSubstring [
+MPLBatchMethodRename >> newSubstring [
 	^ newSubstring
 ]
 
 { #category : #accessing }
-DPGBatchMethodRename >> newSubstring: anObject [
+MPLBatchMethodRename >> newSubstring: anObject [
 	newSubstring := anObject
 ]
 
 { #category : #accessing }
-DPGBatchMethodRename >> oldSubstring [
+MPLBatchMethodRename >> oldSubstring [
 	^ oldSubstring
 ]
 
 { #category : #accessing }
-DPGBatchMethodRename >> oldSubstring: anObject [
+MPLBatchMethodRename >> oldSubstring: anObject [
 	oldSubstring := anObject
 ]
 
 { #category : #initialization }
-DPGBatchMethodRename >> useBeginsWith [
+MPLBatchMethodRename >> useBeginsWith [
 	self comparisonSelector: #beginsWith:
 ]
 
 { #category : #initialization }
-DPGBatchMethodRename >> useEndsWith [
+MPLBatchMethodRename >> useEndsWith [
 	self comparisonSelector: #endsWith:
 ]
 
 { #category : #accessing }
-DPGBatchMethodRename >> validate [
+MPLBatchMethodRename >> validate [
 	self methods isEmptyOrNil ifTrue: [ self error: 'Methods are needed to execute this action' ].
 	self newSubstring ifNil: [ self error: 'A new substring is needed even if the new one should be empty.' ].
 	self oldSubstring ifNil: [ self error: 'A substring to replace in methods names is needed.' ]

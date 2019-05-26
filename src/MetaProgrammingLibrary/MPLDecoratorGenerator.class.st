@@ -1,47 +1,47 @@
 Class {
-	#name : #DPGDecoratorGenerator,
-	#superclass : #DPGAbstractGenerator,
+	#name : #MPLDecoratorGenerator,
+	#superclass : #MPLAbstractGenerator,
 	#instVars : [
 		'decoratorClass',
 		'decoratorInstVarName',
 		'classToBeDecorated',
 		'methodsForDecorator'
 	],
-	#category : #DesignPatternGenerator
+	#category : #MetaProgrammingLibrary
 }
 
 { #category : #accessing }
-DPGDecoratorGenerator >> classToBeDecorated [
+MPLDecoratorGenerator >> classToBeDecorated [
 	^ classToBeDecorated
 ]
 
 { #category : #accessing }
-DPGDecoratorGenerator >> classToBeDecorated: anObject [
+MPLDecoratorGenerator >> classToBeDecorated: anObject [
 	classToBeDecorated := anObject
 ]
 
 { #category : #accessing }
-DPGDecoratorGenerator >> decoratorClass [
+MPLDecoratorGenerator >> decoratorClass [
 	^ decoratorClass
 ]
 
 { #category : #accessing }
-DPGDecoratorGenerator >> decoratorClass: anObject [
+MPLDecoratorGenerator >> decoratorClass: anObject [
 	decoratorClass := anObject
 ]
 
 { #category : #accessing }
-DPGDecoratorGenerator >> decoratorInstVarName [
+MPLDecoratorGenerator >> decoratorInstVarName [
 	^ decoratorInstVarName
 ]
 
 { #category : #accessing }
-DPGDecoratorGenerator >> decoratorInstVarName: anObject [
+MPLDecoratorGenerator >> decoratorInstVarName: anObject [
 	decoratorInstVarName := anObject
 ]
 
 { #category : #generating }
-DPGDecoratorGenerator >> generate [
+MPLDecoratorGenerator >> generate [
 	self methodsForDecorator do: [ :compiledMethod |
 		|selector ast hasSelfReturn|
 		selector := compiledMethod selector.
@@ -55,11 +55,11 @@ DPGDecoratorGenerator >> generate [
 ]
 
 { #category : #accessing }
-DPGDecoratorGenerator >> methodsForDecorator [
+MPLDecoratorGenerator >> methodsForDecorator [
 	^ methodsForDecorator
 ]
 
 { #category : #accessing }
-DPGDecoratorGenerator >> methodsForDecorator: anObject [
+MPLDecoratorGenerator >> methodsForDecorator: anObject [
 	methodsForDecorator := anObject
 ]

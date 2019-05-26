@@ -1,22 +1,22 @@
 Class {
-	#name : #DPGConstructorGenerator,
-	#superclass : #DPGAbstractGenerator,
+	#name : #MPLConstructorGenerator,
+	#superclass : #MPLAbstractGenerator,
 	#instVars : [
 		'targetClass',
 		'constructorArgumentNames',
 		'protocol',
 		'mutatorSelectors'
 	],
-	#category : #DesignPatternGenerator
+	#category : #MetaProgrammingLibrary
 }
 
 { #category : #default }
-DPGConstructorGenerator class >> defaultConstructorProtocol [
+MPLConstructorGenerator class >> defaultConstructorProtocol [
 	^ 'instance creation'
 ]
 
 { #category : #generating }
-DPGConstructorGenerator >> buildConstructorSourceCode [
+MPLConstructorGenerator >> buildConstructorSourceCode [
 	^ String streamContents: [ :stream |
 		self mutatorMethods with: self constructorArgumentNames do: [ :method :parameterName |
 			stream
@@ -35,22 +35,22 @@ DPGConstructorGenerator >> buildConstructorSourceCode [
 ]
 
 { #category : #accessing }
-DPGConstructorGenerator >> constructorArgumentNames [
+MPLConstructorGenerator >> constructorArgumentNames [
 	^ constructorArgumentNames
 ]
 
 { #category : #accessing }
-DPGConstructorGenerator >> constructorArgumentNames: anObject [
+MPLConstructorGenerator >> constructorArgumentNames: anObject [
 	constructorArgumentNames := anObject
 ]
 
 { #category : #configuring }
-DPGConstructorGenerator >> createDummyParameterNames [
+MPLConstructorGenerator >> createDummyParameterNames [
 	self constructorArgumentNames: (self mutatorMethods collect: [ :method | method selector allButLast ])
 ]
 
 { #category : #generating }
-DPGConstructorGenerator >> generate [
+MPLConstructorGenerator >> generate [
 	| selector |
 	selector := self targetClass classSide compile: self buildConstructorSourceCode.
 	(self targetClass classSide >> selector)
@@ -58,42 +58,42 @@ DPGConstructorGenerator >> generate [
 ]
 
 { #category : #initialization }
-DPGConstructorGenerator >> initialize [
+MPLConstructorGenerator >> initialize [
 	super initialize.
 	self protocol: self class defaultConstructorProtocol
 ]
 
 { #category : #accessing }
-DPGConstructorGenerator >> mutatorMethods [
+MPLConstructorGenerator >> mutatorMethods [
 	^ self mutatorSelectors collect: [ :selector | self targetClass >> selector ]
 ]
 
 { #category : #accessing }
-DPGConstructorGenerator >> mutatorSelectors [
+MPLConstructorGenerator >> mutatorSelectors [
 	^ mutatorSelectors
 ]
 
 { #category : #accessing }
-DPGConstructorGenerator >> mutatorSelectors: aCollection [
+MPLConstructorGenerator >> mutatorSelectors: aCollection [
 	mutatorSelectors := aCollection
 ]
 
 { #category : #accessing }
-DPGConstructorGenerator >> protocol [
+MPLConstructorGenerator >> protocol [
 	^ protocol
 ]
 
 { #category : #accessing }
-DPGConstructorGenerator >> protocol: anObject [
+MPLConstructorGenerator >> protocol: anObject [
 	protocol := anObject
 ]
 
 { #category : #accessing }
-DPGConstructorGenerator >> targetClass [
+MPLConstructorGenerator >> targetClass [
 	^ targetClass
 ]
 
 { #category : #accessing }
-DPGConstructorGenerator >> targetClass: anObject [
+MPLConstructorGenerator >> targetClass: anObject [
 	targetClass := anObject
 ]

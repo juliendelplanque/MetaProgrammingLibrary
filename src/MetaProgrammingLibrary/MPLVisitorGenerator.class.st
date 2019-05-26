@@ -1,6 +1,6 @@
 Class {
-	#name : #DPGVisitorGenerator,
-	#superclass : #DPGAbstractGenerator,
+	#name : #MPLVisitorGenerator,
+	#superclass : #MPLAbstractGenerator,
 	#instVars : [
 		'visitor',
 		'visited',
@@ -10,33 +10,33 @@ Class {
 		'visitorMethodTemplate',
 		'shouldGenerateMethodInVisitedClasses'
 	],
-	#category : #DesignPatternGenerator
+	#category : #MetaProgrammingLibrary
 }
 
 { #category : #default }
-DPGVisitorGenerator class >> defaultVisitedMethodProtocol [
+MPLVisitorGenerator class >> defaultVisitedMethodProtocol [
 	^ 'visiting'
 ]
 
 { #category : #default }
-DPGVisitorGenerator class >> defaultVisitedMethodTemplate [
+MPLVisitorGenerator class >> defaultVisitedMethodTemplate [
 	^ 'acceptVisitor: a{visitorClassName}
 	^ a{visitorClassName} visit{visitedClassName}: self'
 ]
 
 { #category : #default }
-DPGVisitorGenerator class >> defaultVisitorMethodProtocol [
+MPLVisitorGenerator class >> defaultVisitorMethodProtocol [
 	^ 'visiting'
 ]
 
 { #category : #default }
-DPGVisitorGenerator class >> defaultVisitorMethodTemplate [
+MPLVisitorGenerator class >> defaultVisitorMethodTemplate [
 	^ 'visit{visitedClassName}: a{visitedClassName}
 	^ self subclassResponsibility'
 ]
 
 { #category : #'instance creation' }
-DPGVisitorGenerator class >> visitorClass: anObject1 visitedClasses: anObject2 [ 
+MPLVisitorGenerator class >> visitorClass: anObject1 visitedClasses: anObject2 [ 
 	^ self new
 		visitorClass: anObject1;
 		visitedClasses: anObject2;
@@ -44,7 +44,7 @@ DPGVisitorGenerator class >> visitorClass: anObject1 visitedClasses: anObject2 [
 ]
 
 { #category : #generating }
-DPGVisitorGenerator >> generate [
+MPLVisitorGenerator >> generate [
 	| selector |
 	self assert: self visitorClass isClass.
 	self assert: (self visitedClasses allSatisfy: #isClass).
@@ -65,7 +65,7 @@ DPGVisitorGenerator >> generate [
 ]
 
 { #category : #initialization }
-DPGVisitorGenerator >> initialize [
+MPLVisitorGenerator >> initialize [
 	super initialize.
 	self
 		visitedMethodProtocol: self class defaultVisitedMethodProtocol;
@@ -76,85 +76,85 @@ DPGVisitorGenerator >> initialize [
 ]
 
 { #category : #accessing }
-DPGVisitorGenerator >> shouldGenerateMethodInVisitedClasses [
+MPLVisitorGenerator >> shouldGenerateMethodInVisitedClasses [
 	^ shouldGenerateMethodInVisitedClasses
 ]
 
 { #category : #accessing }
-DPGVisitorGenerator >> shouldGenerateMethodInVisitedClasses: anObject [
+MPLVisitorGenerator >> shouldGenerateMethodInVisitedClasses: anObject [
 	shouldGenerateMethodInVisitedClasses := anObject
 ]
 
 { #category : #accessing }
-DPGVisitorGenerator >> visitedClasses [
+MPLVisitorGenerator >> visitedClasses [
 	^ visited
 ]
 
 { #category : #accessing }
-DPGVisitorGenerator >> visitedClasses: anObject [
+MPLVisitorGenerator >> visitedClasses: anObject [
 	visited := anObject
 ]
 
 { #category : #generating }
-DPGVisitorGenerator >> visitedMethodForVisited: visitedClass [
+MPLVisitorGenerator >> visitedMethodForVisited: visitedClass [
 	^ self visitedMethodTemplate format: { 
 		'visitorClassName' -> self visitorClass name.
 		'visitedClassName' -> visitedClass name } asDictionary
 ]
 
 { #category : #accessing }
-DPGVisitorGenerator >> visitedMethodProtocol [
+MPLVisitorGenerator >> visitedMethodProtocol [
 	^ visitedMethodProtocol
 ]
 
 { #category : #accessing }
-DPGVisitorGenerator >> visitedMethodProtocol: anObject [
+MPLVisitorGenerator >> visitedMethodProtocol: anObject [
 	visitedMethodProtocol := anObject
 ]
 
 { #category : #accessing }
-DPGVisitorGenerator >> visitedMethodTemplate [
+MPLVisitorGenerator >> visitedMethodTemplate [
 	^ visitedMethodTemplate
 ]
 
 { #category : #accessing }
-DPGVisitorGenerator >> visitedMethodTemplate: anObject [
+MPLVisitorGenerator >> visitedMethodTemplate: anObject [
 	visitedMethodTemplate := anObject
 ]
 
 { #category : #accessing }
-DPGVisitorGenerator >> visitorClass [
+MPLVisitorGenerator >> visitorClass [
 	^ visitor
 ]
 
 { #category : #accessing }
-DPGVisitorGenerator >> visitorClass: anObject [
+MPLVisitorGenerator >> visitorClass: anObject [
 	visitor := anObject
 ]
 
 { #category : #generating }
-DPGVisitorGenerator >> visitorMethodForVisited: visitedClass [
+MPLVisitorGenerator >> visitorMethodForVisited: visitedClass [
 	^ self visitorMethodTemplate format: { 
 		'visitorClassName' -> self visitorClass name.
 		'visitedClassName' -> visitedClass name } asDictionary
 ]
 
 { #category : #accessing }
-DPGVisitorGenerator >> visitorMethodTemplate [
+MPLVisitorGenerator >> visitorMethodTemplate [
 	^ visitorMethodTemplate
 ]
 
 { #category : #accessing }
-DPGVisitorGenerator >> visitorMethodTemplate: anObject [
+MPLVisitorGenerator >> visitorMethodTemplate: anObject [
 	visitorMethodTemplate := anObject
 ]
 
 { #category : #accessing }
-DPGVisitorGenerator >> visitorMethodsProtocol [
+MPLVisitorGenerator >> visitorMethodsProtocol [
 	^ visitorMethodsProtocol
 ]
 
 { #category : #accessing }
-DPGVisitorGenerator >> visitorMethodsProtocol: anObject [
+MPLVisitorGenerator >> visitorMethodsProtocol: anObject [
 	visitorMethodsProtocol := anObject
 ]
