@@ -37,7 +37,7 @@ Person class>>name: name age: age
 
 ```st
 MPLVisitorGenerator new
-	visitorClass: ClassToBeVisited;
+	visitorClass: VisitorClass;
 	visitedClasses: { VisitedClass1 . VisitedClass2 . VisitedClass3 };
 	generate.
 ```
