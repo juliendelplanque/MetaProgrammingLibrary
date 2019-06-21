@@ -22,7 +22,16 @@ MPLConstructorGeneratorCommand >> defaultMenuItemName [
 { #category : #execution }
 MPLConstructorGeneratorCommand >> execute [
 	| code |
-	code := 'DPGConstructorGenerator new
+	self methods size = 1 "If single method selected, directly generate."
+		ifTrue: [ 
+			MPLConstructorGenerator name
+				targetClass: self targetClass;
+				mutatorSelectors: (self methods collect: #selector);
+				createDummyParameterNames;
+				generate.
+			^ self ].
+	
+	code := MPLConstructorGenerator name , ' new
 	targetClass: {1};
 	mutatorSelectors: {2};
 	createDummyParameterNames;
