@@ -8,7 +8,9 @@ Class {
 		'visitorMethodsProtocol',
 		'visitedMethodTemplate',
 		'visitorMethodTemplate',
-		'shouldGenerateMethodInVisitedClasses'
+		'shouldGenerateMethodInVisitedClasses',
+		'visitorClassNameBlock',
+		'visitedClassNameBlock'
 	],
 	#category : #MetaProgrammingLibrary
 }
@@ -44,6 +46,14 @@ MPLVisitorGenerator class >> visitorClass: anObject1 visitedClasses: anObject2 [
 ]
 
 { #category : #generating }
+MPLVisitorGenerator >> compilationContextWith: visitedClass [
+	^ {
+		('visitorClassName' -> (self visitorClassNameBlock value: self visitorClass name)).
+		('visitedClassName' -> (self visitedClassNameBlock value: visitedClass name))
+	} asDictionary
+]
+
+{ #category : #generating }
 MPLVisitorGenerator >> generate [
 	| selector |
 	self assert: self visitorClass isClass.
@@ -72,7 +82,9 @@ MPLVisitorGenerator >> initialize [
 		visitedMethodTemplate: self class defaultVisitedMethodTemplate;
 		visitorMethodsProtocol: self class defaultVisitorMethodProtocol;
 		visitorMethodTemplate: self class defaultVisitorMethodTemplate;
-		shouldGenerateMethodInVisitedClasses: true
+		shouldGenerateMethodInVisitedClasses: true;
+		visitorClassNameBlock: [ :str | str ];
+		visitedClassNameBlock: [ :str | str ]
 ]
 
 { #category : #accessing }
@@ -83,6 +95,16 @@ MPLVisitorGenerator >> shouldGenerateMethodInVisitedClasses [
 { #category : #accessing }
 MPLVisitorGenerator >> shouldGenerateMethodInVisitedClasses: anObject [
 	shouldGenerateMethodInVisitedClasses := anObject
+]
+
+{ #category : #accessing }
+MPLVisitorGenerator >> visitedClassNameBlock [
+	^ visitedClassNameBlock
+]
+
+{ #category : #accessing }
+MPLVisitorGenerator >> visitedClassNameBlock: anObject [
+	visitedClassNameBlock := anObject
 ]
 
 { #category : #accessing }
@@ -97,9 +119,7 @@ MPLVisitorGenerator >> visitedClasses: anObject [
 
 { #category : #generating }
 MPLVisitorGenerator >> visitedMethodForVisited: visitedClass [
-	^ self visitedMethodTemplate format: { 
-		'visitorClassName' -> self visitorClass name.
-		'visitedClassName' -> visitedClass name } asDictionary
+	^ self visitedMethodTemplate format: (self compilationContextWith: visitedClass)
 ]
 
 { #category : #accessing }
@@ -132,11 +152,19 @@ MPLVisitorGenerator >> visitorClass: anObject [
 	visitor := anObject
 ]
 
+{ #category : #accessing }
+MPLVisitorGenerator >> visitorClassNameBlock [
+	^ visitorClassNameBlock
+]
+
+{ #category : #accessing }
+MPLVisitorGenerator >> visitorClassNameBlock: anObject [
+	visitorClassNameBlock := anObject
+]
+
 { #category : #generating }
 MPLVisitorGenerator >> visitorMethodForVisited: visitedClass [
-	^ self visitorMethodTemplate format: { 
-		'visitorClassName' -> self visitorClass name.
-		'visitedClassName' -> visitedClass name } asDictionary
+	^ self visitorMethodTemplate format: (self compilationContextWith: visitedClass)
 ]
 
 { #category : #accessing }
