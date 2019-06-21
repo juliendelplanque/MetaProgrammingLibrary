@@ -24,7 +24,7 @@ MPLConstructorGeneratorCommand >> execute [
 	| code |
 	self methods size = 1 "If single method selected, directly generate."
 		ifTrue: [ 
-			MPLConstructorGenerator name
+			MPLConstructorGenerator new
 				targetClass: self targetClass;
 				mutatorSelectors: (self methods collect: #selector);
 				createDummyParameterNames;
