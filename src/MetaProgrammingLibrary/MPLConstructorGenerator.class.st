@@ -20,18 +20,15 @@ MPLConstructorGenerator >> buildConstructorAST [
 	^ (PCGMethodNode selectorKeywords: self mutatorSelectors arguments: (self constructorArgumentNames collect: [ :arg | arg asSymbol asPCGArgument ]))
 		bodyBlock: [ :body |
 			|cascade|
-			cascade := PCGCascadeNode new.
+			cascade := (#self asPCGArgument receiveMessage: #new) asCascade.
 			self mutatorSelectors with: self constructorArgumentNames do: [ :method :parameterName |
 				cascade
-					addMessage: (#self asPCGArgument receiveMessage: method with: parameterName asSymbol asPCGArgument) ].
+					receiveMessage: method with: parameterName asSymbol asPCGArgument ].
+			cascade
+					receiveMessage: #yourself.
 			body << cascade returnIt ];
 		protocol: self protocol;
 		yourself
-]
-
-{ #category : #generating }
-MPLConstructorGenerator >> buildConstructorSourceCode [
-	^ self buildConstructorAST sourceCode
 ]
 
 { #category : #accessing }
