@@ -16,22 +16,22 @@ MPLConstructorGenerator class >> defaultConstructorProtocol [
 ]
 
 { #category : #generating }
+MPLConstructorGenerator >> buildConstructorAST [
+	^ (PCGMethodNode selectorKeywords: self mutatorSelectors arguments: (self constructorArgumentNames collect: [ :arg | arg asSymbol asPCGArgument ]))
+		bodyBlock: [ :body |
+			|cascade|
+			cascade := PCGCascadeNode new.
+			self mutatorSelectors with: self constructorArgumentNames do: [ :method :parameterName |
+				cascade
+					addMessage: (#self asPCGArgument receiveMessage: method with: parameterName asSymbol asPCGArgument) ].
+			body << cascade returnIt ];
+		protocol: self protocol;
+		yourself
+]
+
+{ #category : #generating }
 MPLConstructorGenerator >> buildConstructorSourceCode [
-	^ String streamContents: [ :stream |
-		self mutatorMethods with: self constructorArgumentNames do: [ :method :parameterName |
-			stream
-				<< method selector; space; << parameterName; space ].
-		stream
-			cr;
-			tab;
-			<< '^ self new'.
-		self mutatorMethods with: self constructorArgumentNames do: [ :method :parameterName |
-			stream cr;
-				tab; tab; << method selector; space; << parameterName; << $; ].
-		stream << Character cr.
-			stream << Character tab.
-			stream << Character tab.
-		stream << 'yourself' ]
+	^ self buildConstructorAST sourceCode
 ]
 
 { #category : #accessing }
@@ -51,10 +51,7 @@ MPLConstructorGenerator >> createDummyParameterNames [
 
 { #category : #generating }
 MPLConstructorGenerator >> generate [
-	| selector |
-	selector := self targetClass classSide compile: self buildConstructorSourceCode.
-	(self targetClass classSide >> selector)
-		protocol: self protocol
+	self buildConstructorAST installOn: self targetClass classSide
 ]
 
 { #category : #initialization }
