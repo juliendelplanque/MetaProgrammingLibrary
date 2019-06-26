@@ -28,27 +28,14 @@ MPLBatchMethodGenerator >> contextBlock: anObject [
 { #category : #generating }
 MPLBatchMethodGenerator >> generate [
 	self targetClasses do: [ :c |
-	|selector|
-	selector := c compile: (self template format: (self contextBlock value: c)).
-	(c >> selector)
-		protocol: self protocol ]
+	(self template substituteParametersWith: (self contextBlock value: c))
+		installOn: c ]
 ]
 
 { #category : #initialization }
 MPLBatchMethodGenerator >> initialize [
 	super initialize.
-	self protocol: Protocol unclassified.
 	self context: Array empty
-]
-
-{ #category : #accessing }
-MPLBatchMethodGenerator >> protocol [
-	^ protocol
-]
-
-{ #category : #accessing }
-MPLBatchMethodGenerator >> protocol: anObject [
-	protocol := anObject
 ]
 
 { #category : #accessing }
