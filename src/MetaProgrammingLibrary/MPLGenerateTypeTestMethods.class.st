@@ -14,7 +14,7 @@ MPLGenerateTypeTestMethods >> generate [
 		do: [ :class | 
 			MPLBatchMethodGenerator new
 				contextBlock: [ :c | 
-					{(#selector -> ('is' , c name) asSymbol).
+					{(#selector -> ('is' , class name) asSymbol).
 					(#booleanToReturn -> (class = c) asPCG)} asDictionary ];
 				template: self typeTestMethodTemplate;
 				targetClasses: { class. self targetSuperClass};
@@ -45,5 +45,5 @@ MPLGenerateTypeTestMethods >> targetSuperClass: anObject [
 MPLGenerateTypeTestMethods >> typeTestMethodTemplate [
 	^ (PCGMethodNode selector: #selector asPCGTemplateParameter)
 		protocol: 'testing';
-		bodyBlock: [ :body | body << #booleanToReturn returnIt ]
+		bodyBlock: [ :body | body << #booleanToReturn asPCGTemplateParameter returnIt ]
 ]
