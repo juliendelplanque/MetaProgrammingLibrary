@@ -1,5 +1,5 @@
 Class {
-	#name : #MPLGenerateTypeTestMethods,
+	#name : #MPLTypeTestMethodsGenerator,
 	#superclass : #MPLAbstractGenerator,
 	#instVars : [
 		'targetSuperClass',
@@ -10,7 +10,7 @@ Class {
 }
 
 { #category : #generating }
-MPLGenerateTypeTestMethods >> generate [
+MPLTypeTestMethodsGenerator >> generate [
 	self targetClasses
 		do: [ :class | 
 			MPLBatchMethodGenerator new
@@ -23,55 +23,55 @@ MPLGenerateTypeTestMethods >> generate [
 ]
 
 { #category : #initialization }
-MPLGenerateTypeTestMethods >> initialize [
+MPLTypeTestMethodsGenerator >> initialize [
 	super initialize.
 	self testMethodSelectorBlock: [ :class | ('is' , class name) asSymbol ]
 ]
 
 { #category : #accessing }
-MPLGenerateTypeTestMethods >> targetClass: aClass [ 
+MPLTypeTestMethodsGenerator >> targetClass: aClass [ 
 	self targetClasses: { aClass }
 ]
 
 { #category : #accessing }
-MPLGenerateTypeTestMethods >> targetClasses [
+MPLTypeTestMethodsGenerator >> targetClasses [
 	^ targetClasses
 ]
 
 { #category : #accessing }
-MPLGenerateTypeTestMethods >> targetClasses: anObject [
+MPLTypeTestMethodsGenerator >> targetClasses: anObject [
 	targetClasses := anObject
 ]
 
 { #category : #accessing }
-MPLGenerateTypeTestMethods >> targetSuperClass [
+MPLTypeTestMethodsGenerator >> targetSuperClass [
 	^ targetSuperClass
 ]
 
 { #category : #accessing }
-MPLGenerateTypeTestMethods >> targetSuperClass: anObject [
+MPLTypeTestMethodsGenerator >> targetSuperClass: anObject [
 	targetSuperClass := anObject
 ]
 
 { #category : #accessing }
-MPLGenerateTypeTestMethods >> testMethodSelectorBlock [
+MPLTypeTestMethodsGenerator >> testMethodSelectorBlock [
 	^ testMethodSelectorBlock
 ]
 
 { #category : #accessing }
-MPLGenerateTypeTestMethods >> testMethodSelectorBlock: anObject [
+MPLTypeTestMethodsGenerator >> testMethodSelectorBlock: anObject [
 	testMethodSelectorBlock := anObject
 ]
 
 { #category : #generating }
-MPLGenerateTypeTestMethods >> typeTestMethodTemplate [
+MPLTypeTestMethodsGenerator >> typeTestMethodTemplate [
 	^ (PCGMethodNode selector: #selector asPCGTemplateParameter)
 		protocol: 'testing';
 		bodyBlock: [ :body | body << #booleanToReturn asPCGTemplateParameter returnIt ]
 ]
 
 { #category : #configuring }
-MPLGenerateTypeTestMethods >> withoutClassPrefixInSelector: classPrefix [
+MPLTypeTestMethodsGenerator >> withoutClassPrefixInSelector: classPrefix [
 	self testMethodSelectorBlock: [ :class |
 		('is' , (class name allButFirst: classPrefix size)) asSymbol ]
 ]
