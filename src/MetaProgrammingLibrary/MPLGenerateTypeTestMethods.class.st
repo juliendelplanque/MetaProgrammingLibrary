@@ -29,6 +29,11 @@ MPLGenerateTypeTestMethods >> initialize [
 ]
 
 { #category : #accessing }
+MPLGenerateTypeTestMethods >> targetClass: aClass [ 
+	self targetClasses: { aClass }
+]
+
+{ #category : #accessing }
 MPLGenerateTypeTestMethods >> targetClasses [
 	^ targetClasses
 ]
