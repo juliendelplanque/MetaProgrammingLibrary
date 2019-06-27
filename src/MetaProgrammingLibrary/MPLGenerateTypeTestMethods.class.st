@@ -3,7 +3,8 @@ Class {
 	#superclass : #MPLAbstractGenerator,
 	#instVars : [
 		'targetSuperClass',
-		'targetClasses'
+		'targetClasses',
+		'testMethodSelectorBlock'
 	],
 	#category : #MetaProgrammingLibrary
 }
@@ -14,11 +15,17 @@ MPLGenerateTypeTestMethods >> generate [
 		do: [ :class | 
 			MPLBatchMethodGenerator new
 				contextBlock: [ :c | 
-					{(#selector -> ('is' , class name) asSymbol).
+					{(#selector -> (self testMethodSelectorBlock value: class)).
 					(#booleanToReturn -> (class = c) asPCG)} asDictionary ];
 				template: self typeTestMethodTemplate;
 				targetClasses: { class. self targetSuperClass};
 				generate ]
+]
+
+{ #category : #initialization }
+MPLGenerateTypeTestMethods >> initialize [
+	super initialize.
+	self testMethodSelectorBlock: [ :class | ('is' , class name) asSymbol ]
 ]
 
 { #category : #accessing }
@@ -39,6 +46,16 @@ MPLGenerateTypeTestMethods >> targetSuperClass [
 { #category : #accessing }
 MPLGenerateTypeTestMethods >> targetSuperClass: anObject [
 	targetSuperClass := anObject
+]
+
+{ #category : #accessing }
+MPLGenerateTypeTestMethods >> testMethodSelectorBlock [
+	^ testMethodSelectorBlock
+]
+
+{ #category : #accessing }
+MPLGenerateTypeTestMethods >> testMethodSelectorBlock: anObject [
+	testMethodSelectorBlock := anObject
 ]
 
 { #category : #generating }
