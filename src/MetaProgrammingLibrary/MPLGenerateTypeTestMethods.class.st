@@ -69,3 +69,9 @@ MPLGenerateTypeTestMethods >> typeTestMethodTemplate [
 		protocol: 'testing';
 		bodyBlock: [ :body | body << #booleanToReturn asPCGTemplateParameter returnIt ]
 ]
+
+{ #category : #configuring }
+MPLGenerateTypeTestMethods >> withoutClassPrefixInSelector: classPrefix [
+	self testMethodSelectorBlock: [ :class |
+		('is' , (class name allButFirst: classPrefix size)) asSymbol ]
+]
