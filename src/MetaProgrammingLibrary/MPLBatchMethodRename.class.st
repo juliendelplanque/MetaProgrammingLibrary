@@ -12,7 +12,7 @@ Class {
 
 { #category : #examples }
 MPLBatchMethodRename class >> example [
-	MPLBatchClassesPrefixRename new
+	MPLBatchMethodRename new
 		methods: {(Object >> #haltIf:) . (Object >> #haltOnCount:)};
 		oldSubstring: 'halt';
 		newSubstring: 'break';
@@ -21,7 +21,7 @@ MPLBatchMethodRename class >> example [
 
 { #category : #examples }
 MPLBatchMethodRename class >> example2 [
-	MPLBatchClassesPrefixRename new
+	MPLBatchMethodRename new
 		class: Object;
 		oldSubstring: 'halt';
 		newSubstring: 'break';
@@ -30,7 +30,7 @@ MPLBatchMethodRename class >> example2 [
 ]
 
 { #category : #accessing }
-MPLBatchMethodRename >> classe: aClass [
+MPLBatchMethodRename >> class: aClass [
 	self methods: aClass methods
 ]
 
@@ -62,7 +62,7 @@ MPLBatchMethodRename >> generate [
 
 			(RBRenameMethodRefactoring
 				renameMethod: method selector
-				in: method class
+				in: method methodClass
 				to: (method selector copyReplaceAll: self oldSubstring with: self newSubstring)
 				permutation: permutationMap) execute ]
 ]
