@@ -61,11 +61,6 @@ MPLBatchClassesPrefixRename >> oldPrefix: anObject [
 ]
 
 { #category : #accessing }
-MPLBatchClassesPrefixRename >> package: aRPackage [
-	self packages: { aRPackage }
-]
-
-{ #category : #accessing }
 MPLBatchClassesPrefixRename >> packages: aCollectionOfRPackage [
 	self classes: (aCollectionOfRPackage flatCollect: #definedClasses)
 ]
