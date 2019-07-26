@@ -22,8 +22,11 @@ MPLVisitorGenerator class >> defaultVisitedMethodProtocol [
 
 { #category : #default }
 MPLVisitorGenerator class >> defaultVisitedMethodTemplate [
-	^ 'acceptVisitor: a{visitorClassName}
-	^ a{visitorClassName} visit{visitedClassName}: self'
+	^ (PCGMethodNode selector: #acceptVisitor: arguments: { #visitorParameter asPCGTemplateParameter })
+		bodyBlock: [ :body |
+			body << (#visitorParameter asPCGTemplateParameter
+						receiveMessage: #visitMessageSelector asPCGTemplateParameter
+						with: #self asPCGNode) returnIt ]
 ]
 
 { #category : #default }
@@ -33,8 +36,9 @@ MPLVisitorGenerator class >> defaultVisitorMethodProtocol [
 
 { #category : #default }
 MPLVisitorGenerator class >> defaultVisitorMethodTemplate [
-	^ 'visit{visitedClassName}: a{visitedClassName}
-	^ self subclassResponsibility'
+	^ (PCGMethodNode selector: #visitMessageSelector asPCGTemplateParameter arguments: { #visitedParameter asPCGTemplateParameter })
+		bodyBlock: [ :body |
+			body << (#self asPCGNode receiveMessage: #subclassResponsibility) returnIt ]
 ]
 
 { #category : #'instance creation' }
@@ -48,30 +52,21 @@ MPLVisitorGenerator class >> visitorClass: anObject1 visitedClasses: anObject2 [
 { #category : #generating }
 MPLVisitorGenerator >> compilationContextWith: visitedClass [
 	^ {
-		('visitorClassName' -> (self visitorClassNameBlock value: self visitorClass name)).
-		('visitedClassName' -> (self visitedClassNameBlock value: visitedClass name))
+		'visitorParameter' -> ('a' , (self visitorClassNameBlock value: self visitorClass name)) asSymbol asPCGArgument.
+		'visitMessageSelector' -> ('visit' , (self visitedClassNameBlock value: visitedClass name) , ':') asSymbol.
+		'visitedParameter' -> ('a' , (self visitedClassNameBlock value: visitedClass name)) asSymbol asPCGArgument
 	} asDictionary
 ]
 
 { #category : #generating }
 MPLVisitorGenerator >> generate [
-	| selector |
 	self assert: self visitorClass isClass.
 	self assert: (self visitedClasses allSatisfy: #isClass).
-	
-	selector := self visitorClass compile: 'visit: anObject
-	^ anObject acceptVisitor: self'.
-	(self visitorClass >> selector)
-		protocol: self visitorMethodsProtocol.
-	
-	self visitedClasses do: [ :visitedClass |
-		self shouldGenerateMethodInVisitedClasses ifTrue: [
-			selector := visitedClass compile: (self visitedMethodForVisited: visitedClass).
-			(visitedClass >> selector)
-				protocol: self visitedMethodProtocol ].
-		selector := self visitorClass compile: (self visitorMethodForVisited: visitedClass).
-		(self visitorClass >> selector)
-			protocol: self visitorMethodsProtocol ]
+	self installVisitHelperOnVisitor.
+	self visitedClasses do: [ :visitedClass | 
+		self shouldGenerateMethodInVisitedClasses
+			ifTrue: [ self installVisitedMethodFor: visitedClass ].
+		self installVisitorMethodFor: visitedClass ]
 ]
 
 { #category : #initialization }
@@ -85,6 +80,31 @@ MPLVisitorGenerator >> initialize [
 		shouldGenerateMethodInVisitedClasses: true;
 		visitorClassNameBlock: [ :str | str ];
 		visitedClassNameBlock: [ :str | str ]
+]
+
+{ #category : #generating }
+MPLVisitorGenerator >> installVisitHelperOnVisitor [
+	(PCGMethodNode selector: #visit: arguments: { #anObject asPCGArgument })
+		bodyBlock: [ :body |
+			body << (#anObject asPCGArgument
+						receiveMessage: self visitedMethodTemplate selector
+						with: #self asPCGNode) returnIt ];
+		protocol: self visitorMethodsProtocol;
+		installOn: self visitorClass
+]
+
+{ #category : #generating }
+MPLVisitorGenerator >> installVisitedMethodFor: visitedClass [
+	(self visitedMethodTemplate substituteParametersWith: (self compilationContextWith: visitedClass))
+		protocol: self visitedMethodProtocol;
+		installOn: visitedClass
+]
+
+{ #category : #generating }
+MPLVisitorGenerator >> installVisitorMethodFor: visitedClass [
+	(self visitorMethodTemplate substituteParametersWith: (self compilationContextWith: visitedClass))
+		protocol: self visitorMethodsProtocol;
+		installOn: self visitorClass
 ]
 
 { #category : #accessing }
@@ -115,11 +135,6 @@ MPLVisitorGenerator >> visitedClasses [
 { #category : #accessing }
 MPLVisitorGenerator >> visitedClasses: anObject [
 	visited := anObject
-]
-
-{ #category : #generating }
-MPLVisitorGenerator >> visitedMethodForVisited: visitedClass [
-	^ self visitedMethodTemplate format: (self compilationContextWith: visitedClass)
 ]
 
 { #category : #accessing }
@@ -160,11 +175,6 @@ MPLVisitorGenerator >> visitorClassNameBlock [
 { #category : #accessing }
 MPLVisitorGenerator >> visitorClassNameBlock: anObject [
 	visitorClassNameBlock := anObject
-]
-
-{ #category : #generating }
-MPLVisitorGenerator >> visitorMethodForVisited: visitedClass [
-	^ self visitorMethodTemplate format: (self compilationContextWith: visitedClass)
 ]
 
 { #category : #accessing }
