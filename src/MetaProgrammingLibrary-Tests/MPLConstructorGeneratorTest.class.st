@@ -34,6 +34,7 @@ MPLConstructorGeneratorTest >> testGenerate [
 	constructorGenerator generate.
 	
 	self assert: (MPLFakeClass class >> #fake3:fake2:fake1:) sourceCode equals: 'fake3: fake3 fake2: fake2 fake1: fake1
+	<generated>
 	^ self new
 		fake3: fake3;
 		fake2: fake2;
