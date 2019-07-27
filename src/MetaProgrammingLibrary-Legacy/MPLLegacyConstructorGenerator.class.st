@@ -7,7 +7,7 @@ Class {
 		'protocol',
 		'mutatorSelectors'
 	],
-	#category : #MetaProgrammingLibrary
+	#category : #'MetaProgrammingLibrary-Legacy'
 }
 
 { #category : #default }

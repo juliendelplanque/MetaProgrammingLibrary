@@ -7,7 +7,7 @@ Class {
 		'contextBlock',
 		'protocol'
 	],
-	#category : #MetaProgrammingLibrary
+	#category : #'MetaProgrammingLibrary-Legacy'
 }
 
 { #category : #accessing }

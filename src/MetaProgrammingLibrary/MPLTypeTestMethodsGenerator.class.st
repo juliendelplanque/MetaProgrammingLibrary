@@ -65,9 +65,7 @@ MPLTypeTestMethodsGenerator >> testMethodSelectorBlock: anObject [
 
 { #category : #generating }
 MPLTypeTestMethodsGenerator >> typeTestMethodTemplate [
-	^ (PCGMethodNode selector: #selector asPCGTemplateParameter)
-		protocol: 'testing';
-		bodyBlock: [ :body | body << #booleanToReturn asPCGTemplateParameter returnIt ]
+	^ self templatesRepository typeTestMethodTemplate
 ]
 
 { #category : #configuring }

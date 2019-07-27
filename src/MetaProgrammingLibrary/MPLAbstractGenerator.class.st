@@ -8,3 +8,8 @@ Class {
 MPLAbstractGenerator >> generate [
 	self subclassResponsibility
 ]
+
+{ #category : #accessing }
+MPLAbstractGenerator >> templatesRepository [
+	^ PCGTemplatesRepository new
+]

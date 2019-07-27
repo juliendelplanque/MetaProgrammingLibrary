@@ -12,7 +12,7 @@ Class {
 		'visitorClassNameBlock',
 		'visitedClassNameBlock'
 	],
-	#category : #MetaProgrammingLibrary
+	#category : #'MetaProgrammingLibrary-Legacy'
 }
 
 { #category : #default }
