@@ -29,6 +29,7 @@ MPLBatchMethodGenerator >> contextBlock: anObject [
 MPLBatchMethodGenerator >> generate [
 	self targetClasses do: [ :c |
 	(self template substituteParametersWith: (self contextBlock value: c))
+		withGeneratedPragma: self withGeneratedPragma;
 		installOn: c ]
 ]
 

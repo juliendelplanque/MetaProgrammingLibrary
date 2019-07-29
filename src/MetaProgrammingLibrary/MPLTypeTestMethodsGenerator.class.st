@@ -19,6 +19,7 @@ MPLTypeTestMethodsGenerator >> generate [
 					(#booleanToReturn -> (class = c) asPCG)} asDictionary ];
 				template: self typeTestMethodTemplate;
 				targetClasses: { class. self targetSuperClass};
+				withGeneratedPragma: self withGeneratedPragma;
 				generate ]
 ]
 

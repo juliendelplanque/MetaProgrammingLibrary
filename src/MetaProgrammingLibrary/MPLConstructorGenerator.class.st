@@ -48,7 +48,9 @@ MPLConstructorGenerator >> createDummyParameterNames [
 
 { #category : #generating }
 MPLConstructorGenerator >> generate [
-	self buildConstructorAST installOn: self targetClass classSide
+	self buildConstructorAST
+		withGeneratedPragma: self withGeneratedPragma;
+		installOn: self targetClass classSide
 ]
 
 { #category : #initialization }

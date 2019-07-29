@@ -90,6 +90,7 @@ MPLVisitorGenerator >> installVisitHelperOnVisitor [
 						receiveMessage: self visitedMethodTemplate selector
 						with: #self asPCGNode) returnIt ];
 		protocol: self visitorMethodsProtocol;
+		withGeneratedPragma: self withGeneratedPragma;
 		installOn: self visitorClass
 ]
 
@@ -97,6 +98,7 @@ MPLVisitorGenerator >> installVisitHelperOnVisitor [
 MPLVisitorGenerator >> installVisitedMethodFor: visitedClass [
 	(self visitedMethodTemplate substituteParametersWith: (self compilationContextWith: visitedClass))
 		protocol: self visitedMethodProtocol;
+		withGeneratedPragma: self withGeneratedPragma;
 		installOn: visitedClass
 ]
 
@@ -104,6 +106,7 @@ MPLVisitorGenerator >> installVisitedMethodFor: visitedClass [
 MPLVisitorGenerator >> installVisitorMethodFor: visitedClass [
 	(self visitorMethodTemplate substituteParametersWith: (self compilationContextWith: visitedClass))
 		protocol: self visitorMethodsProtocol;
+		withGeneratedPragma: self withGeneratedPragma;
 		installOn: self visitorClass
 ]
 
