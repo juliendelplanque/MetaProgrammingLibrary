@@ -21,22 +21,19 @@ MPLConstructorGeneratorCommand >> defaultMenuItemName [
 
 { #category : #execution }
 MPLConstructorGeneratorCommand >> execute [
-	| code |
-	self methods size = 1 "If single method selected, directly generate."
-		ifTrue: [ 
-			MPLConstructorGenerator new
-				targetClass: self targetClass;
-				mutatorSelectors: (self methods collect: #selector);
-				createDummyParameterNames;
-				generate.
-			^ self ].
-	
-	code := MPLConstructorGenerator name , ' new
-	targetClass: {1};
-	mutatorSelectors: {2};
-	createDummyParameterNames;
-	generate' format: { self targetClass name . (self methods collect: #selector) asArray storeString }.
-	Smalltalk tools workspace edit: code label: 'Code for meta-programming'
+	Smalltalk tools workspace edit: self pcgAstForWorkspace sourceCode label: 'Code for meta-programming'
+]
+
+{ #category : #accessing }
+MPLConstructorGeneratorCommand >> pcgAstForWorkspace [
+	^ PCGSequenceNode new
+		<< ((PCGCascadeNode target: (MPLConstructorGenerator asPCG receiveMessage: #new))
+			receiveMessage: #targetClass: with: self targetClass asPCG;
+			receiveMessage: #mutatorSelectors: with: (self methods collect: #selector) asPCG;
+			receiveMessage: #createDummyParameterNames;
+			receiveMessage: #withGeneratedPragma: with: true asPCG;
+			receiveMessage: #generate);
+	yourself
 ]
 
 { #category : #execution }
