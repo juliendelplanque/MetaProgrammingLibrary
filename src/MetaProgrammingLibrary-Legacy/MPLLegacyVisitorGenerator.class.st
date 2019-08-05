@@ -54,7 +54,7 @@ MPLLegacyVisitorGenerator >> compilationContextWith: visitedClass [
 ]
 
 { #category : #generating }
-MPLLegacyVisitorGenerator >> generate [
+MPLLegacyVisitorGenerator >> execute [
 	| selector |
 	self assert: self visitorClass isClass.
 	self assert: (self visitedClasses allSatisfy: #isClass).

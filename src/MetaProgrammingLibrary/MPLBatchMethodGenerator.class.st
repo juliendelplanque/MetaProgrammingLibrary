@@ -26,7 +26,7 @@ MPLBatchMethodGenerator >> contextBlock: anObject [
 ]
 
 { #category : #generating }
-MPLBatchMethodGenerator >> generate [
+MPLBatchMethodGenerator >> execute [
 	self targetClasses do: [ :c |
 	(self template substituteParametersWith: (self contextBlock value: c))
 		withGeneratedPragma: self withGeneratedPragma;

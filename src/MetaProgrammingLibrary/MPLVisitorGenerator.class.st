@@ -59,7 +59,7 @@ MPLVisitorGenerator >> compilationContextWith: visitedClass [
 ]
 
 { #category : #generating }
-MPLVisitorGenerator >> generate [
+MPLVisitorGenerator >> execute [
 	self assert: self visitorClass isClass.
 	self assert: (self visitedClasses allSatisfy: #isClass).
 	self installVisitHelperOnVisitor.

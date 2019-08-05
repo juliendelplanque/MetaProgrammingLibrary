@@ -26,12 +26,12 @@ MPLSignalConstructorGeneratorTest >> tearDown [
 ]
 
 { #category : #test }
-MPLSignalConstructorGeneratorTest >> testGenerate [
+MPLSignalConstructorGeneratorTest >> testExecute [
 	signalConstructorGenerator
 		mutatorSelectors: #(#fake3: #fake2: #fake1:);
 		createDummyParameterNames.
 	
-	signalConstructorGenerator generate.
+	signalConstructorGenerator execute.
 	
 	self assert: (MPLFakeClass class >> #signalForFake3:fake2:fake1:) sourceCode equals: 'signalForFake3: fake3 fake2: fake2 fake1: fake1
 	<generated>

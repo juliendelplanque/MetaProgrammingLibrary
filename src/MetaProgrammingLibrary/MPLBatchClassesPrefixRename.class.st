@@ -25,7 +25,7 @@ MPLBatchClassesPrefixRename >> classes: anObject [
 ]
 
 { #category : #generating }
-MPLBatchClassesPrefixRename >> generate [
+MPLBatchClassesPrefixRename >> execute [
 	self classes
 		select: [ :c | c name beginsWith: self oldPrefix ]
 		thenDo: [ :classToBeRenamed |

@@ -23,6 +23,6 @@ MPLBatchMethodRenameCommand >> pcgAstForWorkspace [
 			receiveMessage: #oldSubstring: with: '' asPCG;
 			receiveMessage: #newSubstring: with: '' asPCG;
 			receiveMessage: #useBeginsWith;
-			receiveMessage: #generate;
+			receiveMessage: #execute;
 			yourself
 ]

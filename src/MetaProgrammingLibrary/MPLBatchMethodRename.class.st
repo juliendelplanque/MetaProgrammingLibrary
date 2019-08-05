@@ -16,7 +16,7 @@ MPLBatchMethodRename class >> example [
 		methods: {(Object >> #haltIf:) . (Object >> #haltOnCount:)};
 		oldSubstring: 'halt';
 		newSubstring: 'break';
-		generate
+		execute
 ]
 
 { #category : #examples }
@@ -26,7 +26,7 @@ MPLBatchMethodRename class >> example2 [
 		oldSubstring: 'halt';
 		newSubstring: 'break';
 		useBeginsWith;
-		generate
+		execute
 ]
 
 { #category : #accessing }
@@ -50,7 +50,7 @@ MPLBatchMethodRename >> comparisonSelector: anObject [
 ]
 
 { #category : #generating }
-MPLBatchMethodRename >> generate [
+MPLBatchMethodRename >> execute [
 	self validate.
 
 	self methods

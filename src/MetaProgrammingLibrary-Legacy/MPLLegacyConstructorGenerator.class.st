@@ -50,7 +50,7 @@ MPLLegacyConstructorGenerator >> createDummyParameterNames [
 ]
 
 { #category : #generating }
-MPLLegacyConstructorGenerator >> generate [
+MPLLegacyConstructorGenerator >> execute [
 	| selector |
 	selector := self targetClass classSide compile: self buildConstructorSourceCode.
 	(self targetClass classSide >> selector)

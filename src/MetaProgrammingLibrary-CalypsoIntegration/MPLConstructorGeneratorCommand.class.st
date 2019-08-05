@@ -23,6 +23,6 @@ MPLConstructorGeneratorCommand >> pcgAstForWorkspace [
 			receiveMessage: #mutatorSelectors: with: (self methods collect: #selector) asPCG;
 			receiveMessage: #createDummyParameterNames;
 			receiveMessage: #withGeneratedPragma: with: true asPCG;
-			receiveMessage: #generate;
+			receiveMessage: #execute;
 			yourself
 ]

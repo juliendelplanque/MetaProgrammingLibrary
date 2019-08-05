@@ -26,12 +26,12 @@ MPLConstructorGeneratorTest >> tearDown [
 ]
 
 { #category : #test }
-MPLConstructorGeneratorTest >> testGenerate [
+MPLConstructorGeneratorTest >> testExecute [
 	constructorGenerator
 		mutatorSelectors: #(#fake3: #fake2: #fake1:);
 		createDummyParameterNames.
 	
-	constructorGenerator generate.
+	constructorGenerator execute.
 	
 	self assert: (MPLFakeClass class >> #fake3:fake2:fake1:) sourceCode equals: 'fake3: fake3 fake2: fake2 fake1: fake1
 	<generated>

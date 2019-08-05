@@ -26,7 +26,7 @@ MPLLegacyBatchMethodGenerator >> contextBlock: anObject [
 ]
 
 { #category : #generating }
-MPLLegacyBatchMethodGenerator >> generate [
+MPLLegacyBatchMethodGenerator >> execute [
 	self targetClasses do: [ :c |
 	|selector|
 	selector := c compile: (self template format: (self contextBlock value: c)).

@@ -10,7 +10,7 @@ Class {
 }
 
 { #category : #generating }
-MPLTypeTestMethodsGenerator >> generate [
+MPLTypeTestMethodsGenerator >> execute [
 	self targetClasses
 		do: [ :class | 
 			MPLBatchMethodGenerator new
@@ -20,7 +20,7 @@ MPLTypeTestMethodsGenerator >> generate [
 				template: self typeTestMethodTemplate;
 				targetClasses: { class. self targetSuperClass};
 				withGeneratedPragma: self withGeneratedPragma;
-				generate ]
+				execute ]
 ]
 
 { #category : #initialization }

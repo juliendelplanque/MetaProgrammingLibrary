@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #generating }
-MPLAbstractGenerator >> generate [
+MPLAbstractGenerator >> execute [
 	self subclassResponsibility
 ]
 
