@@ -1,6 +1,6 @@
 Class {
 	#name : #MPLBatchMethodRename,
-	#superclass : #MPLAbstractGenerator,
+	#superclass : #MPLAbstractCommand,
 	#instVars : [
 		'oldSubstring',
 		'newSubstring',

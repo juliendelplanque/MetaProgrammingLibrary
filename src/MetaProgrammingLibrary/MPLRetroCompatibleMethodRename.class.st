@@ -1,5 +1,5 @@
 Class {
 	#name : #MPLRetroCompatibleMethodRename,
-	#superclass : #MPLAbstractGenerator,
+	#superclass : #MPLAbstractCommand,
 	#category : #MetaProgrammingLibrary
 }

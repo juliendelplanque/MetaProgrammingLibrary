@@ -1,6 +1,6 @@
 Class {
 	#name : #MPLLegacyVisitorGenerator,
-	#superclass : #MPLAbstractGenerator,
+	#superclass : #MPLAbstractCommand,
 	#instVars : [
 		'visitor',
 		'visited',

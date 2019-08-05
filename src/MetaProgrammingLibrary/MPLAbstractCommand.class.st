@@ -1,5 +1,5 @@
 Class {
-	#name : #MPLAbstractGenerator,
+	#name : #MPLAbstractCommand,
 	#superclass : #Object,
 	#instVars : [
 		'withGeneratedPragma'
@@ -8,27 +8,27 @@ Class {
 }
 
 { #category : #generating }
-MPLAbstractGenerator >> execute [
+MPLAbstractCommand >> execute [
 	self subclassResponsibility
 ]
 
 { #category : #initialization }
-MPLAbstractGenerator >> initialize [
+MPLAbstractCommand >> initialize [
 	super initialize.
 	self withGeneratedPragma: true
 ]
 
 { #category : #accessing }
-MPLAbstractGenerator >> templatesRepository [
+MPLAbstractCommand >> templatesRepository [
 	^ PCGTemplatesRepository new
 ]
 
 { #category : #accessing }
-MPLAbstractGenerator >> withGeneratedPragma [
+MPLAbstractCommand >> withGeneratedPragma [
 	^ withGeneratedPragma
 ]
 
 { #category : #accessing }
-MPLAbstractGenerator >> withGeneratedPragma: anObject [
+MPLAbstractCommand >> withGeneratedPragma: anObject [
 	withGeneratedPragma := anObject
 ]

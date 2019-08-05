@@ -1,6 +1,6 @@
 Class {
 	#name : #MPLTypeTestMethodsGenerator,
-	#superclass : #MPLAbstractGenerator,
+	#superclass : #MPLAbstractCommand,
 	#instVars : [
 		'targetSuperClass',
 		'targetClasses',

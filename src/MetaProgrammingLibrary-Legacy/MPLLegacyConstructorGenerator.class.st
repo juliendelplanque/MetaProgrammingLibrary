@@ -1,6 +1,6 @@
 Class {
 	#name : #MPLLegacyConstructorGenerator,
-	#superclass : #MPLAbstractGenerator,
+	#superclass : #MPLAbstractCommand,
 	#instVars : [
 		'targetClass',
 		'constructorArgumentNames',

@@ -1,6 +1,6 @@
 Class {
 	#name : #MPLBatchClassesPrefixRename,
-	#superclass : #MPLAbstractGenerator,
+	#superclass : #MPLAbstractCommand,
 	#instVars : [
 		'oldPrefix',
 		'newPrefix',

@@ -1,6 +1,6 @@
 Class {
 	#name : #MPLBatchMethodGenerator,
-	#superclass : #MPLAbstractGenerator,
+	#superclass : #MPLAbstractCommand,
 	#instVars : [
 		'targetClasses',
 		'template',

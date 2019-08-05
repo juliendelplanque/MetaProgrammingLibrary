@@ -1,6 +1,6 @@
 Class {
 	#name : #MPLDecoratorGenerator,
-	#superclass : #MPLAbstractGenerator,
+	#superclass : #MPLAbstractCommand,
 	#instVars : [
 		'decoratorClass',
 		'decoratorInstVarName',
