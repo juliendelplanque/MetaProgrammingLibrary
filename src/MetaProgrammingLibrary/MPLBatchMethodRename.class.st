@@ -58,7 +58,7 @@ MPLBatchMethodRename >> execute [
 		thenDo: [ :method | 
 			| permutationMap |
 			"We want to keep the arguments in the same order"
-			permutationMap := method numArgs = 0 ifTrue: [ #() ] ifFalse: [ (1 to: method numArgs) asArray ].
+			permutationMap := (1 to: method numArgs) asArray.
 
 			(RBRenameMethodRefactoring
 				renameMethod: method selector
