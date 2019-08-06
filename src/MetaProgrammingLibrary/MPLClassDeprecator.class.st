@@ -14,6 +14,13 @@ MPLClassDeprecator class >> classToDeprecate: classToDeprecate [
 		yourself
 ]
 
+{ #category : #execution }
+MPLClassDeprecator class >> deprecate: aClass [
+	^ (self classToDeprecate: aClass)
+		execute;
+		yourself
+]
+
 { #category : #accessing }
 MPLClassDeprecator >> classToDeprecate [
 	^ classToDeprecate
