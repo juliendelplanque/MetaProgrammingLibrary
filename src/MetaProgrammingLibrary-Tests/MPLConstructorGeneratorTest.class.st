@@ -20,7 +20,7 @@ MPLConstructorGeneratorTest >> setUp [
 
 { #category : #running }
 MPLConstructorGeneratorTest >> tearDown [
-	(MPLFakeClass class canUnderstand: #fake3:fake2:fake1:)
+	(MPLFakeClass class includesLocalSelector: #fake3:fake2:fake1:)
 		ifTrue: [ (MPLFakeClass class >> #fake3:fake2:fake1:) removeFromSystem ].
 	super tearDown
 ]

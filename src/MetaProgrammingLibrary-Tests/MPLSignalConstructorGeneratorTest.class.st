@@ -20,7 +20,7 @@ MPLSignalConstructorGeneratorTest >> setUp [
 
 { #category : #running }
 MPLSignalConstructorGeneratorTest >> tearDown [
-	(MPLFakeClass class canUnderstand: #signalForFake3:fake2:fake1:)
+	(MPLFakeClass class includesLocalSelector: #signalForFake3:fake2:fake1:)
 		ifTrue: [ (MPLFakeClass class >> #signalForFake3:fake2:fake1:) removeFromSystem ].
 	super tearDown
 ]
