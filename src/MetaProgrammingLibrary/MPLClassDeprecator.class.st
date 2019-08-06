@@ -24,7 +24,7 @@ MPLClassDeprecator >> classToDeprecate: anObject [
 	classToDeprecate := anObject
 ]
 
-{ #category : #generating }
+{ #category : #executing }
 MPLClassDeprecator >> execute [
 	(PCGMethodNode selector: #isDeprecated)
 		bodyBlock: [ :body |

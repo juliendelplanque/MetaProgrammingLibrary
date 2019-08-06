@@ -25,7 +25,7 @@ MPLBatchMethodGenerator >> contextBlock: anObject [
 	contextBlock := anObject
 ]
 
-{ #category : #generating }
+{ #category : #executing }
 MPLBatchMethodGenerator >> execute [
 	self targetClasses do: [ :c |
 	(self template substituteParametersWith: (self contextBlock value: c))

@@ -58,7 +58,7 @@ MPLVisitorGenerator >> compilationContextWith: visitedClass [
 	} asDictionary
 ]
 
-{ #category : #generating }
+{ #category : #executing }
 MPLVisitorGenerator >> execute [
 	self assert: self visitorClass isClass.
 	self assert: (self visitedClasses allSatisfy: #isClass).

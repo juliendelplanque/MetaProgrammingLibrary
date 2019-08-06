@@ -40,7 +40,7 @@ MPLDecoratorGenerator >> decoratorInstVarName: anObject [
 	decoratorInstVarName := anObject
 ]
 
-{ #category : #generating }
+{ #category : #executing }
 MPLDecoratorGenerator >> execute [
 	self methodsForDecorator do: [ :compiledMethod |
 		|selector ast hasSelfReturn|

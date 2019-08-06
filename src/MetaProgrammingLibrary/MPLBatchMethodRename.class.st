@@ -49,7 +49,7 @@ MPLBatchMethodRename >> comparisonSelector: anObject [
 	comparisonSelector := anObject
 ]
 
-{ #category : #generating }
+{ #category : #executing }
 MPLBatchMethodRename >> execute [
 	self validate.
 

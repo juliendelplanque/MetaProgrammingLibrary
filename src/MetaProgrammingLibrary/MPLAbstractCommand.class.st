@@ -7,7 +7,7 @@ Class {
 	#category : #MetaProgrammingLibrary
 }
 
-{ #category : #generating }
+{ #category : #executing }
 MPLAbstractCommand >> execute [
 	self subclassResponsibility
 ]

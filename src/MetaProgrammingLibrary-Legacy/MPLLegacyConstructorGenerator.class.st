@@ -55,7 +55,7 @@ MPLLegacyConstructorGenerator >> createDummyParameterNames [
 	self constructorArgumentNames: (self mutatorMethods collect: [ :method | method selector allButLast ])
 ]
 
-{ #category : #generating }
+{ #category : #executing }
 MPLLegacyConstructorGenerator >> execute [
 	| selector |
 	selector := self targetClass classSide compile: self buildConstructorSourceCode.

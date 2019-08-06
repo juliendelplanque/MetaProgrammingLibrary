@@ -31,7 +31,7 @@ MPLLegacyBatchMethodGenerator >> contextBlock: anObject [
 	contextBlock := anObject
 ]
 
-{ #category : #generating }
+{ #category : #executing }
 MPLLegacyBatchMethodGenerator >> execute [
 	self targetClasses do: [ :c |
 	|selector|

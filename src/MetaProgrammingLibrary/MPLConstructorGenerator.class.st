@@ -46,7 +46,7 @@ MPLConstructorGenerator >> createDummyParameterNames [
 	self constructorArgumentNames: (self mutatorMethods collect: [ :method | method selector allButLast ])
 ]
 
-{ #category : #generating }
+{ #category : #executing }
 MPLConstructorGenerator >> execute [
 	self buildConstructorAST
 		withGeneratedPragma: self withGeneratedPragma;

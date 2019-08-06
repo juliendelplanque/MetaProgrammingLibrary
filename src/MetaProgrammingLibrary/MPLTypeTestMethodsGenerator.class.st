@@ -9,7 +9,7 @@ Class {
 	#category : #MetaProgrammingLibrary
 }
 
-{ #category : #generating }
+{ #category : #executing }
 MPLTypeTestMethodsGenerator >> execute [
 	self targetClasses
 		do: [ :class | 

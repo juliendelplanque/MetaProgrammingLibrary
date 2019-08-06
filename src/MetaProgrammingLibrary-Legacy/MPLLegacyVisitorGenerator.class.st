@@ -59,7 +59,7 @@ MPLLegacyVisitorGenerator >> compilationContextWith: visitedClass [
 	} asDictionary
 ]
 
-{ #category : #generating }
+{ #category : #executing }
 MPLLegacyVisitorGenerator >> execute [
 	| selector |
 	self assert: self visitorClass isClass.
