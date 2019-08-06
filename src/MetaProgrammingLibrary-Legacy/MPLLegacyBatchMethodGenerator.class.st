@@ -10,6 +10,12 @@ Class {
 	#category : #'MetaProgrammingLibrary-Legacy'
 }
 
+{ #category : #deprecation }
+MPLLegacyBatchMethodGenerator class >> isDeprecated [
+	<generated>
+	^ true
+]
+
 { #category : #accessing }
 MPLLegacyBatchMethodGenerator >> context: aDictionary [
 	self contextBlock: [ :c | aDictionary ]

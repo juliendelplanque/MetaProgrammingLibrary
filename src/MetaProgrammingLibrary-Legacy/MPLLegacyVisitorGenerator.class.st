@@ -37,6 +37,12 @@ MPLLegacyVisitorGenerator class >> defaultVisitorMethodTemplate [
 	^ self subclassResponsibility'
 ]
 
+{ #category : #deprecation }
+MPLLegacyVisitorGenerator class >> isDeprecated [
+	<generated>
+	^ true
+]
+
 { #category : #'instance creation' }
 MPLLegacyVisitorGenerator class >> visitorClass: anObject1 visitedClasses: anObject2 [ 
 	^ self new

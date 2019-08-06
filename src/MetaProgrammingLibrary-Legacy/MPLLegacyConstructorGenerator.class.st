@@ -15,6 +15,12 @@ MPLLegacyConstructorGenerator class >> defaultConstructorProtocol [
 	^ 'instance creation'
 ]
 
+{ #category : #deprecation }
+MPLLegacyConstructorGenerator class >> isDeprecated [
+	<generated>
+	^ true
+]
+
 { #category : #generating }
 MPLLegacyConstructorGenerator >> buildConstructorSourceCode [
 	^ String streamContents: [ :stream |
