@@ -36,7 +36,7 @@ MPLBatchMethodGenerator >> execute [
 { #category : #initialization }
 MPLBatchMethodGenerator >> initialize [
 	super initialize.
-	self context: Array empty
+	self context: Dictionary empty
 ]
 
 { #category : #accessing }
