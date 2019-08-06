@@ -9,10 +9,10 @@ Class {
 
 { #category : #running }
 MPLBatchMethodReclassifierTest >> tearDown [
-	(MPLFakeClass classSide includesLocalSelector: #methodToReclassify)
-		ifTrue: [ (MPLFakeClass class >> #methodToReclassify) removeFromSystem ].
-	(MPLFakeClass2 classSide includesLocalSelector: #methodToReclassify)
-		ifTrue: [ (MPLFakeClass2 class >> #methodToReclassify) removeFromSystem ].
+	(MPLFakeClass includesLocalSelector: #methodToReclassify)
+		ifTrue: [ (MPLFakeClass >> #methodToReclassify) removeFromSystem ].
+	(MPLFakeClass2 includesLocalSelector: #methodToReclassify)
+		ifTrue: [ (MPLFakeClass2 >> #methodToReclassify) removeFromSystem ].
 	super tearDown
 ]
 
