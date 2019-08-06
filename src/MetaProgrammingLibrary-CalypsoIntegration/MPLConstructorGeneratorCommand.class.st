@@ -4,13 +4,6 @@ Class {
 	#category : #'MetaProgrammingLibrary-CalypsoIntegration'
 }
 
-{ #category : #activation }
-MPLConstructorGeneratorCommand class >> methodMenuActivation [
-	<classAnnotation>
-	
-	^CmdContextMenuActivation byItemOf: MPLMenuGroup for: ClyMethod asCalypsoItemContext 
-]
-
 { #category : #execution }
 MPLConstructorGeneratorCommand >> defaultMenuItemName [
 	^'Generate constructor'

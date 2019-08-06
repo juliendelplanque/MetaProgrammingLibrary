@@ -1,6 +1,6 @@
 Class {
-	#name : #MPLMethodCommand,
-	#superclass : #SycMethodCommand,
+	#name : #MPLClassCommand,
+	#superclass : #SycClassCommand,
 	#instVars : [
 		'targetClass'
 	],
@@ -8,30 +8,30 @@ Class {
 }
 
 { #category : #testing }
-MPLMethodCommand class >> isAbstract [
-	^self = MPLMethodCommand 
+MPLClassCommand class >> isAbstract [
+	^self = MPLClassCommand 
 ]
 
 { #category : #activation }
-MPLMethodCommand class >> methodMenuActivation [
+MPLClassCommand class >> methodMenuActivation [
 	<classAnnotation>
 	
-	^CmdContextMenuActivation byItemOf: MPLMenuGroup for: ClyMethod asCalypsoItemContext 
+	^CmdContextMenuActivation byItemOf: MPLMenuGroup for: ClyClass asCalypsoItemContext 
 ]
 
 { #category : #execution }
-MPLMethodCommand >> execute [
+MPLClassCommand >> execute [
 	Smalltalk tools workspace edit: self pcgAstForWorkspace sourceCode label: 'Code for meta-programming'
 ]
 
 { #category : #accessing }
-MPLMethodCommand >> pcgAstForWorkspace [
+MPLClassCommand >> pcgAstForWorkspace [
 	"Returns the AST for the Smalltalk code to be put in the Workspace presented to the developer."
 	^ self subclassResponsibility
 ]
 
 { #category : #execution }
-MPLMethodCommand >> prepareFullExecutionInContext: aToolContext [
+MPLClassCommand >> prepareFullExecutionInContext: aToolContext [
 	super prepareFullExecutionInContext: aToolContext.
 	targetClass := aToolContext selectedClasses size = 1
 						ifFalse: [ aToolContext requestSingleClass: 'Choose class' from: aToolContext selectedClasses ]
@@ -39,11 +39,11 @@ MPLMethodCommand >> prepareFullExecutionInContext: aToolContext [
 ]
 
 { #category : #accessing }
-MPLMethodCommand >> targetClass [
+MPLClassCommand >> targetClass [
 	^ targetClass
 ]
 
 { #category : #accessing }
-MPLMethodCommand >> targetClass: anObject [
+MPLClassCommand >> targetClass: anObject [
 	targetClass := anObject
 ]

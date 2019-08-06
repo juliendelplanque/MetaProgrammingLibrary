@@ -4,13 +4,6 @@ Class {
 	#category : #'MetaProgrammingLibrary-CalypsoIntegration'
 }
 
-{ #category : #activation }
-MPLBatchMethodRenameCommand class >> methodMenuActivation [
-	<classAnnotation>
-	
-	^CmdContextMenuActivation byItemOf: MPLMenuGroup for: ClyMethod asCalypsoItemContext 
-]
-
 { #category : #accessing }
 MPLBatchMethodRenameCommand >> defaultMenuItemName [
 	^ 'Batch rename'
