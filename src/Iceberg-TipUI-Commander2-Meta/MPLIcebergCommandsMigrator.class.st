@@ -20,10 +20,20 @@ MPLIcebergCommandsMigrator >> clean [
 
 { #category : #executing }
 MPLIcebergCommandsMigrator >> createAsSpecCommandMethodFor: class [
-	| cascade |
+	| cascade shortcutActivations |
 	cascade := PCGCascadeNode target: (#super asPCGNode receiveMessage: #asSpecCommand).
+	"Gather the icon name."
 	class originClass defaultMenuIconName ifNotNil: [ 
 		cascade receiveMessage: #iconName: with: class originClass defaultMenuIconName asPCG ].
+	
+	"Gather the shortcut and ensure."
+	shortcutActivations := class originClass classAnnotations select: [ :activation | activation class = CmdShortcutActivation ].
+	self
+		assert: (#(0 1) includes: (shortcutActivations collect: #keyCombination) asSet size)
+		description: 'All activations must have the same shortcut else we can not decide how to translate to Commander2.'.
+	shortcutActivations ifNotEmpty: [
+		cascade receiveMessage: #shortcutKey: with: shortcutActivations anyOne keyCombination asPCG ].
+	
 	cascade messages ifNotEmpty: [
 		(self asSpecCommandMethodTemplate substituteParametersWith: { 
 			#conversionCascade -> (cascade receiveYourself; yourself) } asDictionary)
