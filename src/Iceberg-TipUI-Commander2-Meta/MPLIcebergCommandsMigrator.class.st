@@ -4,23 +4,45 @@ Class {
 	#category : #'Iceberg-TipUI-Commander2-Meta'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #executing }
+MPLIcebergCommandsMigrator >> asSpecCommandMethodTemplate [
+	^ (PCGMethodNode selector: #asSpecCommand)
+		bodyBlock: [ :body | 
+			body << #conversionCascade asPCGTemplateParameter returnIt ];
+		protocol: 'converting';
+		yourself
+]
+
+{ #category : #cleaning }
 MPLIcebergCommandsMigrator >> clean [
 	'Iceberg-TipUI-Commander2' asPackage definedClasses do: [ :c | c removeFromSystem ]
 ]
 
 { #category : #executing }
-MPLIcebergCommandsMigrator >> execute [
-	| originClassMethodTemplate initializeMethodTemplate |
-	originClassMethodTemplate := (PCGMethodNode selector: #originClass)
-		bodyBlock: [ :body | body << #originClassParam asPCGTemplateParameter returnIt ];
-		protocol: 'accessing';
-		yourself.
+MPLIcebergCommandsMigrator >> createAsSpecCommandMethodFor: class [
+	| cascade |
+	cascade := PCGCascadeNode target: (#super asPCGNode receiveMessage: #asSpecCommand).
+	class originClass defaultMenuIconName ifNotNil: [ 
+		cascade receiveMessage: #iconName: with: class originClass defaultMenuIconName asPCG ].
+	cascade messages ifNotEmpty: [
+		(self asSpecCommandMethodTemplate substituteParametersWith: { 
+			#conversionCascade -> (cascade receiveYourself; yourself) } asDictionary)
+				protocol: 'converting';
+				installOn: class instanceSide ]
+]
+
+{ #category : #executing }
+MPLIcebergCommandsMigrator >> createCommander2CommandHierarchy [
+	| rootCommandName |
+	rootCommandName := (IceTipCommand name , '2') asSymbol.
 	CmCommand
-		subclass: (IceTipCommand name , '2') asSymbol
+		subclass: rootCommandName
 		slots: {}
 		classVariables: {}
 		package: 'Iceberg-TipUI-Commander2'.
+	(self class environment at: rootCommandName) comment: CmCommand comment.
+	(self originClassMethodTemplate substituteParametersWith: { #originClassParam -> IceTipCommand asPCG })
+		installOn: (self class environment at: rootCommandName) classSide.
 	IceTipCommand allSubclasses
 		do: [ :c | 
 			| newClassName |
@@ -30,26 +52,78 @@ MPLIcebergCommandsMigrator >> execute [
 				slots: {}
 				classVariables: {}
 				package: 'Iceberg-TipUI-Commander2'.
-			(originClassMethodTemplate
+			(self class environment at: newClassName) comment: c comment.
+			(self originClassMethodTemplate
 				substituteParametersWith: {(#originClassParam -> c asPCG)} asDictionary)
-				installOn:
-					(self class environment at: newClassName) classSide ].
-	
-	initializeMethodTemplate := (PCGMethodNode selector: #initialize)
-		bodyBlock: [ :body |
+				installOn: (self class environment at: newClassName) classSide ]
+]
+
+{ #category : #executing }
+MPLIcebergCommandsMigrator >> createInitializeMethodFor: class [
+	| cascade |
+	cascade := PCGCascadeNode target: #self asPCGNode.
+	(([ class originClass defaultMenuItemName.
+	true ]
+		on: SubclassResponsibility
+		do: [ false ])
+		and: [ class originClass defaultMenuItemName ~= class originClass name ])
+		ifTrue: [ cascade
+				receiveMessage: #basicName:
+				with: class originClass defaultMenuItemName asPCG ].
+	([ class originClass defaultHelp.
+	true ]
+		on: SubclassResponsibility
+		do: [ false ])
+		ifTrue: [ cascade
+				receiveMessage: #basicDescription:
+				with: class originClass defaultHelp asPCG ].
+	^ cascade messages
+		ifNotEmpty: [ (self initializeMethodTemplate
+				substituteParametersWith: {(#initializationCascade -> cascade)} asDictionary)
+				installOn: class instanceSide ]
+]
+
+{ #category : #executing }
+MPLIcebergCommandsMigrator >> createisAbstractMethodFor: class [
+	(class originClass classSide includesLocalSelector: #isAbstract)
+		ifFalse: [ ^ self ].
+
+	(self isAbstractMethodTemplate substituteParametersWith: { #classForComparison -> class asPCG } asDictionary)
+			installOn: class classSide
+]
+
+{ #category : #executing }
+MPLIcebergCommandsMigrator >> execute [
+	self createCommander2CommandHierarchy.
+	IceTipCommand2 withAllSubclasses do: [ :class | 
+			self createInitializeMethodFor: class.
+			self createAsSpecCommandMethodFor: class.
+			self createisAbstractMethodFor: class ]
+]
+
+{ #category : #executing }
+MPLIcebergCommandsMigrator >> initializeMethodTemplate [
+	^ (PCGMethodNode selector: #initialize)
+		bodyBlock: [ :body | 
 			body << (#super asPCGNode receiveMessage: #initialize).
 			body << #initializationCascade asPCGTemplateParameter ];
 		protocol: 'initialization';
-		yourself.
-	
-	IceTipCommand2 allSubclassesDo: [ :c |
-		|cascade|
-		cascade := PCGCascadeNode target: #self asPCGNode.
-		([c originClass defaultMenuItemName. true] on: SubclassResponsibility do: [false])
-			ifTrue: [ cascade receiveMessage: #basicName: with: c originClass defaultMenuItemName asPCG ].
-		([c originClass defaultHelp. true] on: SubclassResponsibility do: [false])
-			ifTrue: [ cascade receiveMessage: #basicDescription: with: c originClass defaultHelp asPCG ].
-		(initializeMethodTemplate substituteParametersWith: { 
-			#initializationCascade -> cascade } asDictionary)
-				installOn: c instanceSide ]
+		yourself
+]
+
+{ #category : #executing }
+MPLIcebergCommandsMigrator >> isAbstractMethodTemplate [
+	^ (PCGMethodNode selector: #isAbstract)
+		bodyBlock: [ :body | 
+			body << (#self asPCGNode receiveMessage: #== with: #classForComparison asPCGTemplateParameter) returnIt ];
+		protocol: 'accessing';
+		yourself
+]
+
+{ #category : #executing }
+MPLIcebergCommandsMigrator >> originClassMethodTemplate [
+	^ (PCGMethodNode selector: #originClass)
+		bodyBlock: [ :body | body << #originClassParam asPCGTemplateParameter returnIt ];
+		protocol: 'accessing';
+		yourself
 ]
