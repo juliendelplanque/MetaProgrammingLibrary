@@ -61,7 +61,7 @@ MPLConstructorGenerator >> initialize [
 
 { #category : #accessing }
 MPLConstructorGenerator >> mutatorMethods [
-	^ self mutatorSelectors collect: [ :selector | self targetClass >> selector ]
+	^ self mutatorSelectors collect: [ :selector | self targetClass lookupSelector: selector ]
 ]
 
 { #category : #accessing }
