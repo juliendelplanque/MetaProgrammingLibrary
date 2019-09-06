@@ -52,9 +52,9 @@ MPLVisitorGenerator class >> visitorClass: anObject1 visitedClasses: anObject2 [
 { #category : #generating }
 MPLVisitorGenerator >> compilationContextWith: visitedClass [
 	^ {
-		'visitorParameter' -> ('a' , (self visitorClassNameBlock value: self visitorClass name)) asSymbol asPCGArgument.
+		'visitorParameter' -> (self visitorClassNameBlock value: self visitorClass name) prefixedByAOrAn asSymbol asPCGArgument.
 		'visitMessageSelector' -> ('visit' , (self visitedClassNameBlock value: visitedClass name) , ':') asSymbol.
-		'visitedParameter' -> ('a' , (self visitedClassNameBlock value: visitedClass name)) asSymbol asPCGArgument
+		'visitedParameter' -> (self visitedClassNameBlock value: visitedClass name) prefixedByAOrAn asSymbol asPCGArgument
 	} asDictionary
 ]
 
