@@ -14,6 +14,15 @@ MPLBatchClassesPrefixRename class >> defaultNewPrefix [
 	^ ''
 ]
 
+{ #category : #example }
+MPLBatchClassesPrefixRename class >> example [
+	MPLBatchClassesPrefixRename new
+		packages: (RPackageOrganizer default packages select: [ :p | p name beginsWith: 'MetaProgrammingLibrary' ]);
+		oldPrefix: 'MPL';
+		newPrefix: 'MPL2';
+		execute
+]
+
 { #category : #accessing }
 MPLBatchClassesPrefixRename >> classes [
 	^ classes
